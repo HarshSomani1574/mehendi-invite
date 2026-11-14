@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You’re Invited · Ishika &amp; Rituraj’s Mehendi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6efdc; --card: #fffaf0; --ink: #3b2a1a; --muted: #7a5f45;
+    --brown: #7a4a21; --tan: #b58b57; --green: #2f5d3a; --leaf: #5f8a4f;
+    --btn-text: #ffffff; --line: #e6d8b8; --opt: #fbf3e1; --shadow: rgba(80, 55, 25, .22);
+    --glow1: #e9dcb4; --glow2: #cfe0bd;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14231a; --card: #1e3325; --ink: #f3ead2; --muted: #c0ae8c;
+      --brown: #d9a56a; --tan: #c9a66b; --green: #8fc99a; --leaf: #a9d6a0;
+      --btn-text: #1d1a10; --line: #35513f; --opt: #274230; --shadow: rgba(0, 0, 0, .45);
+      --glow1: #2d3f22; --glow2: #3b2d1a;
+      color-scheme: dark;
+    }
+  }
+  :root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: radial-gradient(circle at 12% 8%, var(--glow1) 0, transparent 45%), radial-gradient(circle at 88% 92%, var(--glow2) 0, transparent 45%), var(--bg);
+    color: var(--ink); font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .card {
+    background: var(--card); width: calc(100% - 32px); max-width: 460px; max-height: calc(100% - 24px);
+    overflow-x: hidden; overflow-y: auto; border-radius: 28px; padding: 34px 26px 28px; text-align: center;
+    box-shadow: 0 18px 50px var(--shadow); border: 2px solid var(--line); position: relative;
+  }
+  .card::before { content: ""; position: absolute; inset: 8px; border: 1px dashed var(--tan); border-radius: 21px; pointer-events: none; opacity: .75; }
+  .card::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 9px; background: linear-gradient(90deg, var(--green), var(--tan), var(--brown), var(--tan), var(--green)); }
+  .mandala { width: 78px; height: 78px; margin: 0 auto 4px; display: block; }
+  .dots { display: flex; gap: 8px; justify-content: center; margin: 4px 0 18px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); transition: background .3s, transform .3s; }
+  .dots i.on { transform: scale(1.35); }
+  h1, h2 { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; margin: 0 0 6px; line-height: 1.15; color: var(--brown); }
+  h1 { font-size: 33px; } h2 { font-size: 27px; }
+  .sub { color: var(--muted); font-size: 14px; min-height: 1.5em; margin: 0 0 20px; }
+  .step { display: none; animation: fade .45s ease; }
+  .step.show { display: block; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  button { font: inherit; cursor: pointer; border: none; }
+  .btn { background: linear-gradient(135deg, var(--green), var(--leaf)); color: var(--btn-text); font-weight: 600; font-size: 16px; padding: 13px 30px; border-radius: 999px; transition: transform .15s; box-shadow: 0 6px 16px var(--shadow); }
+  .btn:hover { transform: scale(1.06); }
+  .row { display: flex; flex-direction: column; gap: 14px; align-items: center; padding: 52px 0 14px; }
+  #skip { background: linear-gradient(135deg, var(--brown), color-mix(in srgb, var(--brown) 65%, var(--tan))); color: var(--btn-text); font-weight: 700; font-size: 18px; padding: 16px 34px; border-radius: 999px; position: relative; z-index: 10; transition: transform .14s ease-out; user-select: none; -webkit-user-select: none; box-shadow: 0 8px 22px var(--shadow); animation: glow 1.6s ease-out infinite; }
+  @keyframes glow { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brown) 55%, transparent); } 100% { box-shadow: 0 0 0 16px transparent; } }
+  .opts { display: grid; gap: 10px; }
+  .opt { background: var(--opt); color: var(--ink); border: 2px solid var(--c); box-shadow: inset 7px 0 0 var(--c); border-radius: 16px; padding: 0 16px 0 24px; min-height: 56px; font-size: 14.5px; text-align: left; display: flex; align-items: center; transition: transform .15s, background .2s; }
+  .opt:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--c) 14%, var(--opt)); }
+  .opt.good { background: var(--green); border-color: var(--green); color: var(--btn-text); }
+  .opt.bad { animation: shake .4s; }
+  @keyframes shake { 25% { transform: translateX(-7px); } 50% { transform: translateX(7px); } 75% { transform: translateX(-4px); } }
+  .tag { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--green); font-weight: 600; margin-bottom: 6px; }
+  .names { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 44px; margin: 8px 0 4px; color: var(--green); background: linear-gradient(90deg, var(--green), var(--brown)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .event { font-family: "Cormorant Garamond", Georgia, serif; font-size: 23px; margin: 0 0 14px; }
+  .details { text-align: left; background: var(--opt); border: 1px solid var(--line); border-radius: 18px; padding: 14px 18px; margin: 14px 0; font-size: 14.5px; line-height: 1.9; }
+  .details b { display: inline-block; min-width: 90px; color: var(--green); }
+  .details div:nth-child(even) b { color: var(--brown); }
+  .again { background: none; color: var(--muted); font-size: 13px; text-decoration: underline; margin-top: 8px; }
+  .petal { position: fixed; top: -30px; pointer-events: none; animation: fall linear forwards; z-index: 50; }
+  @keyframes fall { to { transform: translateY(112vh) rotate(500deg); } }
+  .oops { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(30, 20, 10, .62); z-index: 100; padding: 20px; }
+  .oops.show { display: flex; }
+  .oops-box { background: var(--card); border: 3px solid var(--green); border-radius: 26px; padding: 26px 24px; max-width: 340px; text-align: center; animation: pop .35s ease; box-shadow: 0 20px 50px rgba(0, 0, 0, .35); }
+  .oops-box .em { font-size: 60px; line-height: 1.1; animation: wob .6s ease 2; }
+  .oops-box h3 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 27px; margin: 8px 0 6px; color: var(--brown); }
+  .oops-box p { margin: 0 0 18px; color: var(--muted); font-size: 14.5px; }
+  @keyframes pop { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes wob { 25% { transform: rotate(-14deg); } 75% { transform: rotate(14deg); } }
+</style>
+</head>
+<body>
+<main class="card" id="card">
+  <svg class="mandala" viewBox="-50 -50 100 100" aria-hidden="true">
+    <defs><ellipse id="pt" cx="0" cy="-27" rx="6.5" ry="15" fill="none" stroke="currentColor" stroke-width="1.8"/></defs>
+    <use href="#pt" style="color:var(--green)"/>
+    <use href="#pt" transform="rotate(45)" style="color:var(--brown)"/>
+    <use href="#pt" transform="rotate(90)" style="color:var(--green)"/>
+    <use href="#pt" transform="rotate(135)" style="color:var(--brown)"/>
+    <use href="#pt" transform="rotate(180)" style="color:var(--green)"/>
+    <use href="#pt" transform="rotate(225)" style="color:var(--brown)"/>
+    <use href="#pt" transform="rotate(270)" style="color:var(--green)"/>
+    <use href="#pt" transform="rotate(315)" style="color:var(--brown)"/>
+    <circle r="9" fill="none" stroke="var(--tan)" stroke-width="2"/><circle r="3.5" fill="var(--brown)"/>
+  </svg>
+  <div class="dots" id="dots"></div>
+
+  <section class="step show" id="s0">
+    <h2>Your invite is ready!</h2>
+    <p class="sub" id="hint">Choose wisely.</p>
+    <p style="margin:0;font-size:16.5px;line-height:1.5">Want to see it right now, or play a few quick fun questions first?</p>
+    <div class="row">
+      <span id="skipWrap" style="display:inline-block"><button id="skip">Show me the invite now ✨</button></span>
+      <button class="btn" id="play">Let’s play! 🎉</button>
+    </div>
+  </section>
+
+  <section class="step" id="sq">
+    <h2 id="qt"></h2>
+    <p class="sub" id="qs">Pick the right answer to continue.</p>
+    <div class="opts" id="opts"></div>
+  </section>
+
+  <section class="step" id="si">
+    <div class="tag">You passed the test 🎉</div>
+    <h1>Mehendi Celebration</h1>
+    <div class="names">Ishika &amp; Rituraj</div>
+    <p class="event">invite you to an evening of mehendi, music &amp; masti</p>
+    <div class="details">
+      <div><b>Date</b> [Date]</div>
+      <div><b>Time</b> [Time]</div>
+      <div><b>Venue</b> Shree Udai Arcade, Udaipur</div>
+      <div><b>Dress code</b> Greens, creams &amp; dancing shoes</div>
+      <div><b>RSVP</b> [Name · Phone]</div>
+    </div>
+    <button class="again" id="again">Play again</button>
+  </section>
+</main>
+
+<div class="oops" id="oops" role="dialog" aria-modal="true">
+  <div class="oops-box">
+    <div class="em" id="oe"></div>
+    <h3 id="ot"></h3>
+    <p id="op"></p>
+    <button class="btn" id="ob">Try again</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var quiz = [
+    { q: "What’s the best time to arrive at a mehendi?",
+      o: ["Right on time, like a good guest", "Fashionably early, to grab a seat", "When the chaat counter opens up", "Late enough to skip the queue"], a: 2 },
+    { q: "What’s the secret to the darkest mehendi colour?",
+      o: ["Wash it off as soon as it dries", "Keep it on overnight, no peeking", "Keep the artist fed and very happy", "Dab on lemon sugar every so often"], a: 2 },
+    { q: "What’s the most important thing to bring?",
+      o: ["A thoughtful gift for the couple", "A comfy pair of walking shoes", "Dance moves worth filming all night", "A calm mood for an early night"], a: 2 }
+  ];
+  var oopsList = [
+    ["🤦", "Arre, kya kar rahe ho!", "Even the mehendi cone is shaking its head at you."],
+    ["🙈", "Confidently wrong!", "The aunties are already whispering about this answer."],
+    ["🎶", "The DJ just stopped the music", "Everyone is staring at you. Quick, pick again!"],
+    ["🐴", "Even the wedding ghodi looks unimpressed", "She has seen better answers at 5 a.m. rituals."],
+    ["🧂", "Too much namak, not enough masti", "Go for an answer with a little more fun."],
+    ["👵", "Dadi says: try again, beta", "She is also asking when you will get married."],
+    ["🍛", "Someone skipped the chaat today", "Hunger is clouding your judgement. Try again."],
+    ["📸", "The photographer deleted that photo", "Nobody wants this answer in the album. Retry!"]
+  ];
+  var good = ["Exactly the right attitude! ✨", "You get it! 🌿", "Now we’re talking! 🎶"];
+  var palette = ['--green', '--brown', '--leaf', '--tan'];
+  var step = 0, total = 5, wrong = 0, lastOops = -1;
+
+  for (var i = 0; i < total; i++) $('dots').appendChild(document.createElement('i'));
+  function dots() {
+    var d = $('dots').children;
+    for (var i = 0; i < d.length; i++) {
+      d[i].className = i === step ? 'on' : '';
+      d[i].style.background = i <= step ? 'var(--green)' : '';
+    }
+  }
+  function show(id) { ['s0', 'sq', 'si'].forEach(function (s) { $(s).classList.toggle('show', s === id); }); }
+  function go(n) {
+    step = n; dots();
+    if (n === 0) { show('s0'); goHome(); }
+    else if (n <= 3) { renderQ(quiz[n - 1]); show('sq'); }
+    else { show('si'); petals(); }
+  }
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  function renderQ(item) {
+    $('qt').textContent = item.q;
+    $('qs').textContent = 'Pick the right answer to continue.';
+    var box = $('opts'); box.innerHTML = ''; wrong = 0;
+    var locked = false;
+    var list = shuffle(item.o.map(function (t, i) { return { t: t, ok: i === item.a }; }));
+    list.forEach(function (opt, idx) {
+      var b = document.createElement('button');
+      b.className = 'opt'; b.textContent = opt.t;
+      b.style.setProperty('--c', 'var(' + palette[idx % 4] + ')');
+      b.addEventListener('click', function () {
+        if (locked) return;
+        if (opt.ok) {
+          locked = true; b.classList.add('good');
+          $('qs').textContent = good[Math.floor(Math.random() * good.length)];
+          setTimeout(function () { go(step + 1); }, 1000);
+        } else {
+          b.classList.remove('bad'); void b.offsetWidth; b.classList.add('bad');
+          oops();
+        }
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function oops() {
+    wrong++;
+    var k; do { k = Math.floor(Math.random() * oopsList.length); } while (k === lastOops);
+    lastOops = k;
+    $('oe').textContent = oopsList[k][0];
+    $('ot').textContent = oopsList[k][1];
+    $('op').textContent = oopsList[k][2] + (wrong >= 2 ? ' Psst… the fun answer is the right one.' : '');
+    $('oops').classList.add('show');
+  }
+  $('ob').addEventListener('click', function () { $('oops').classList.remove('show'); });
+
+  function petals() {
+    var set = ['🌿', '🍃', '🌱', '✨', '🪔'];
+    for (var i = 0; i < 36; i++) {
+      var p = document.createElement('div');
+      p.className = 'petal'; p.textContent = set[i % set.length];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.fontSize = (16 + Math.random() * 14) + 'px';
+      p.style.animationDuration = (3 + Math.random() * 3) + 's';
+      p.style.animationDelay = (Math.random() * 1.2) + 's';
+      document.body.appendChild(p);
+      setTimeout(function (el) { el.remove(); }, 8000, p);
+    }
+  }
+
+  var play = $('play');
+  play.addEventListener('click', function () { go(1); });
+  $('again').addEventListener('click', function () { go(0); });
+
+  // ---- the shy "Straight to the invite" button: dances away from the cursor, stays inside the card ----
+  var skip = $('skip'), hint = $('hint'), card = $('card');
+  var lines = ['Choose wisely.', 'Nice try 😄', 'Too slow!', 'No shortcuts today.', 'Almost had it…', 'Good things come to those who play!', 'Just hit “Let’s play” already'];
+  var dx = 0, dy = 0, dodges = 0, lastDodge = 0, px = -999, py = -999, idle = null;
+
+  function goHome() { dx = 0; dy = 0; skip.style.transform = ''; hint.textContent = lines[0]; }
+  function later(ms) { clearTimeout(idle); idle = setTimeout(goHome, ms); }
+
+  function dodge(force) {
+    if (step !== 0) return;
+    var now = Date.now();
+    if (!force && now - lastDodge < 80) return;
+    lastDodge = now;
+    var w = skip.offsetWidth, h = skip.offsetHeight;
+    var home = $('skipWrap').getBoundingClientRect(), cr = card.getBoundingClientRect(), pr = play.getBoundingClientRect();
+    var minX = Math.max(-90, cr.left + 16 - home.left), maxX = Math.min(90, cr.right - 16 - w - home.left);
+    var minY = Math.max(-70, cr.top + 16 - home.top),  maxY = Math.min(50, cr.bottom - 16 - h - home.top);
+    var best = null;
+    for (var i = 0; i < 30; i++) {
+      var nx = minX + Math.random() * (maxX - minX), ny = minY + Math.random() * (maxY - minY);
+      var l = home.left + nx, t = home.top + ny;
+      if (l < pr.right + 12 && l + w > pr.left - 12 && t < pr.bottom + 12 && t + h > pr.top - 12) continue; // keep clear of Play
+      if (Math.hypot(nx - dx, ny - dy) < 40) continue;
+      var d = px < 0 ? Math.random() : Math.hypot(l + w / 2 - px, t + h / 2 - py);
+      if (!best || d > best.d) best = { x: nx, y: ny, d: d };
+    }
+    if (!best) return;
+    dx = best.x; dy = best.y;
+    skip.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + ((Math.random() * 20 - 10) | 0) + 'deg)';
+    dodges++; hint.textContent = lines[1 + (dodges % (lines.length - 1))];
+    later(1800);
+  }
+
+  skip.addEventListener('mouseenter', function () { dodge(true); });
+  skip.addEventListener('mousedown', function (e) { e.preventDefault(); dodge(true); });
+  skip.addEventListener('pointerdown', function (e) { e.preventDefault(); dodge(true); });
+  skip.addEventListener('touchstart', function (e) { e.preventDefault(); dodge(true); }, { passive: false });
+  skip.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); dodge(true); });
+  skip.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dodge(true); } });
+  document.addEventListener('mousemove', function (e) {
+    px = e.clientX; py = e.clientY;
+    if (step !== 0) return;
+    var r = skip.getBoundingClientRect();
+    if (Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2)) < 120) dodge();
+    if (dx !== 0 || dy !== 0) later(700);
+  });
+  window.addEventListener('resize', goHome);
+
+  dots();
+})();
+</script>
+</body>
+</html>
