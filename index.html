@@ -49,7 +49,7 @@
   button { font: inherit; cursor: pointer; border: none; }
   .btn { background: linear-gradient(135deg, var(--green), var(--leaf)); color: var(--btn-text); font-weight: 600; font-size: 16px; padding: 13px 30px; border-radius: 999px; transition: transform .15s; box-shadow: 0 6px 16px var(--shadow); }
   .btn:hover { transform: scale(1.06); }
-  .row { display: flex; flex-direction: column; gap: 14px; align-items: center; padding: 52px 0 14px; }
+  .row { display: flex; flex-direction: column; gap: 14px; align-items: center; padding: 110px 0 14px; }
   #skip { background: linear-gradient(135deg, var(--brown), color-mix(in srgb, var(--brown) 65%, var(--tan))); color: var(--btn-text); font-weight: 700; font-size: 18px; padding: 16px 34px; border-radius: 999px; position: relative; z-index: 10; transition: transform .14s ease-out; user-select: none; -webkit-user-select: none; box-shadow: 0 8px 22px var(--shadow); animation: glow 1.6s ease-out infinite; }
   @keyframes glow { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brown) 55%, transparent); } 100% { box-shadow: 0 0 0 16px transparent; } }
   .opts { display: grid; gap: 10px; }
@@ -75,6 +75,7 @@
   .oops-box p { margin: 0 0 18px; color: var(--muted); font-size: 14.5px; }
   @keyframes pop { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   @keyframes wob { 25% { transform: rotate(-14deg); } 75% { transform: rotate(14deg); } }
+  .ic { font-size: 30px; line-height: 1; width: 40px; margin-right: 12px; flex: none; text-align: center; }
 </style>
 </head>
 <body>
@@ -139,11 +140,11 @@
   var $ = function (id) { return document.getElementById(id); };
   var quiz = [
     { q: "What’s the best time to arrive at a mehendi?",
-      o: ["Right on time, like a good guest", "Fashionably early, to grab a seat", "When the chaat counter opens up", "Late enough to skip the queue"], a: 2 },
+      o: ["Right on time, like a good guest", "Fashionably early, to grab a seat", "When the chaat counter opens up", "Late enough to skip the queue"], a: 2, e: ["⏰", "🪑", "🍛", "🕶️"] },
     { q: "What’s the secret to the darkest mehendi colour?",
-      o: ["Wash it off as soon as it dries", "Keep it on overnight, no peeking", "Keep the artist fed and very happy", "Dab on lemon sugar every so often"], a: 2 },
+      o: ["Wash it off as soon as it dries", "Keep it on overnight, no peeking", "Keep the artist fed and very happy", "Dab on lemon sugar every so often"], a: 2, e: ["🚿", "🌙", "🍰", "🍋"] },
     { q: "What’s the most important thing to bring?",
-      o: ["A thoughtful gift for the couple", "A comfy pair of walking shoes", "Dance moves worth filming all night", "A calm mood for an early night"], a: 2 }
+      o: ["A thoughtful gift for the couple", "A comfy pair of walking shoes", "Dance moves worth filming all night", "A calm mood for an early night"], a: 2, e: ["🎁", "👟", "💃", "😴"] }
   ];
   var oopsList = [
     ["🤦", "Arre, kya kar rahe ho!", "Even the mehendi cone is shaking its head at you."],
@@ -185,10 +186,10 @@
     $('qs').textContent = 'Pick the right answer to continue.';
     var box = $('opts'); box.innerHTML = ''; wrong = 0;
     var locked = false;
-    var list = shuffle(item.o.map(function (t, i) { return { t: t, ok: i === item.a }; }));
+    var list = shuffle(item.o.map(function (t, i) { return { t: t, e: item.e[i], ok: i === item.a }; }));
     list.forEach(function (opt, idx) {
       var b = document.createElement('button');
-      b.className = 'opt'; b.textContent = opt.t;
+      b.className = 'opt'; b.innerHTML = '<span class="ic"></span><span></span>'; b.children[0].textContent = opt.e; b.children[1].textContent = opt.t;
       b.style.setProperty('--c', 'var(' + palette[idx % 4] + ')');
       b.addEventListener('click', function () {
         if (locked) return;
@@ -245,24 +246,24 @@
   function dodge(force) {
     if (step !== 0) return;
     var now = Date.now();
-    if (!force && now - lastDodge < 80) return;
+    if (!force && now - lastDodge < 60) return;
     lastDodge = now;
     var w = skip.offsetWidth, h = skip.offsetHeight;
     var home = $('skipWrap').getBoundingClientRect(), cr = card.getBoundingClientRect(), pr = play.getBoundingClientRect();
-    var minX = Math.max(-90, cr.left + 16 - home.left), maxX = Math.min(90, cr.right - 16 - w - home.left);
-    var minY = Math.max(-70, cr.top + 16 - home.top),  maxY = Math.min(50, cr.bottom - 16 - h - home.top);
+    var minX = Math.max(-170, cr.left + 16 - home.left), maxX = Math.min(170, cr.right - 16 - w - home.left);
+    var minY = Math.max(-130, cr.top + 16 - home.top),  maxY = Math.min(60, cr.bottom - 16 - h - home.top);
     var best = null;
     for (var i = 0; i < 30; i++) {
       var nx = minX + Math.random() * (maxX - minX), ny = minY + Math.random() * (maxY - minY);
       var l = home.left + nx, t = home.top + ny;
       if (l < pr.right + 12 && l + w > pr.left - 12 && t < pr.bottom + 12 && t + h > pr.top - 12) continue; // keep clear of Play
-      if (Math.hypot(nx - dx, ny - dy) < 40) continue;
+      if (Math.hypot(nx - dx, ny - dy) < 90) continue;
       var d = px < 0 ? Math.random() : Math.hypot(l + w / 2 - px, t + h / 2 - py);
       if (!best || d > best.d) best = { x: nx, y: ny, d: d };
     }
     if (!best) return;
     dx = best.x; dy = best.y;
-    skip.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + ((Math.random() * 20 - 10) | 0) + 'deg)';
+    skip.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + ((Math.random() * 36 - 18) | 0) + 'deg)';
     dodges++; hint.textContent = lines[1 + (dodges % (lines.length - 1))];
     later(1800);
   }
@@ -277,10 +278,22 @@
     px = e.clientX; py = e.clientY;
     if (step !== 0) return;
     var r = skip.getBoundingClientRect();
-    if (Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2)) < 120) dodge();
+    if (Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2)) < 150) dodge();
     if (dx !== 0 || dy !== 0) later(700);
   });
   window.addEventListener('resize', goHome);
+
+  // phones: no cursor, so the button hops around on its own and dodges fingers too
+  var touchy = ('ontouchstart' in window) || matchMedia('(pointer: coarse)').matches;
+  function finger(e) {
+    var t = e.touches && e.touches[0]; if (!t || step !== 0) return;
+    px = t.clientX; py = t.clientY;
+    var r = skip.getBoundingClientRect();
+    if (Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2)) < 130) dodge(true);
+  }
+  document.addEventListener('touchstart', finger, { passive: true });
+  document.addEventListener('touchmove', finger, { passive: true });
+  if (touchy) setInterval(function () { if (step === 0) dodge(true); }, 600);
 
   dots();
 })();
